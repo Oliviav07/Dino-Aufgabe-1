@@ -42,7 +42,7 @@
 }
 
 .jump-animation {
-  /* Sprungzeit auf 1.0s laut Aufgabe */
+
   animation: jump-frames 1.0s linear;
 }
 
