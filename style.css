@@ -1,0 +1,54 @@
+#score {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+}
+
+#game {
+  width: 600px;
+  height: 300px;
+  border: 2px solid black;
+  margin: 50px auto;
+  background-image: url("https://raw.githubusercontent.com/kriscfoster/chrome-dino-game/master/background.jpg");
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+#eagle {
+  height: 75px;
+  width: 75px;
+  top: 225px;
+  left: 50px;
+  position: absolute; 
+  background-image: url("https://raw.githubusercontent.com/kriscfoster/chrome-dino-game/master/dino.png");
+  background-size: cover;
+}
+
+#rock {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 250px;
+  left: 550px;
+  background-image: url("https://raw.githubusercontent.com/kriscfoster/chrome-dino-game/master/rock.png");
+  background-size: cover;
+  animation: rock-move 1.33s infinite linear;
+}
+
+@keyframes rock-move {
+  0% { left: 600px; }
+  100% { left: -50px; }
+}
+
+.jump-animation {
+  /* Sprungzeit auf 1.0s laut Aufgabe */
+  animation: jump-frames 1.0s linear;
+}
+
+@keyframes jump-frames {
+  0% { top: 225px; }
+  30% { top: 100px; }
+  70% { top: 100px; }
+  100% { top: 225px; }
+}
