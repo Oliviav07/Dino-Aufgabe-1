@@ -1,54 +1,117 @@
-#score {
-  text-align: center;
-  font-family: 'Arial', sans-serif;
-  font-size: 24px;
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
 }
 
 #game {
-  width: 600px;
-  height: 300px;
-  border: 2px solid black;
-  margin: 50px auto;
-  background-image: url("https://raw.githubusercontent.com/kriscfoster/chrome-dino-game/master/background.jpg");
-  background-size: cover;
-  position: relative;
-  overflow: hidden;
+    width: 600px;
+    height: 300px;
+    border: 2px solid black;
+    position: relative;
+    overflow: hidden;
+    /* Hintergrund Grafik verbessert: Nahtloses Scrollen durch CSS-Animation */
+    background-image: url("https://raw.githubusercontent.com/kriscfoster/chrome-dino-game/master/background.jpg");
+    background-repeat: repeat-x;
+    background-size: contain;
+    background-position: 0 0;
+}
+
+/* Animation für den Hintergrund - wird erst per JS gestartet */
+.background-moving {
+    animation: slide-bg 10s linear infinite;
+}
+
+@keyframes slide-bg {
+    from { background-position: 0 0; }
+    to { background-position: -600px 0; }
 }
 
 #eagle {
-  height: 75px;
-  width: 75px;
-  top: 225px;
-  left: 50px;
-  position: absolute; 
-  background-image: url("https://raw.githubusercontent.com/kriscfoster/chrome-dino-game/master/dino.png");
-  background-size: cover;
+    height: 75px;
+    width: 75px;
+    top: 225px;
+    left: 50px;
+    position: absolute; 
+    background-image: url("https://raw.githubusercontent.com/kriscfoster/chrome-dino-game/master/dino.png");
+    background-size: cover;
 }
 
 #rock {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 250px;
-  left: 550px;
-  background-image: url("https://raw.githubusercontent.com/kriscfoster/chrome-dino-game/master/rock.png");
-  background-size: cover;
-  animation: rock-move 1.33s infinite linear;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 250px;
+    left: 650px; /* Startet ausserhalb */
+    background-image: url("https://raw.githubusercontent.com/kriscfoster/chrome-dino-game/master/rock.png");
+    background-size: cover;
+}
+
+/* Start-Zustand für den Stein (wird per JS aktiviert) */
+.rock-moving {
+    animation: rock-move 1.5s infinite linear;
+}
+
+#explosion {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    display: none;
+    font-size: 60px;
+    text-align: center;
+    z-index: 10;
+}
+
+/* Start Button Styling */
+#start-menu {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+#start-button {
+    padding: 15px 30px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 @keyframes rock-move {
-  0% { left: 600px; }
-  100% { left: -50px; }
+    0% { left: 600px; }
+    100% { left: -50px; }
 }
 
+/* Springverhalten verbessert: 
+   Anstatt 'linear' nutzen wir 'cubic-bezier', um eine echte Gravitation zu simulieren.
+   Der Dino startet schnell nach oben und wird am Scheitelpunkt langsamer. */
 .jump-animation {
-
-  animation: jump-frames 1.0s linear;
+    animation: jump-frames 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 @keyframes jump-frames {
-  0% { top: 225px; }
-  30% { top: 100px; }
-  70% { top: 100px; }
-  100% { top: 225px; }
+    0% { top: 225px; }
+    45% { top: 80px; }
+    100% { top: 225px; }
+}
+
+.boom-animation {
+    display: block !important;
+    animation: blowup 0.5s forwards;
+}
+
+@keyframes blowup {
+    0% { transform: scale(0.1); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
 }
